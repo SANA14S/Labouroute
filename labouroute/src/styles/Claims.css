@@ -1,0 +1,52 @@
+.claims {
+  padding: 2rem;
+  text-align: center;
+}
+
+.claims h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.claims p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+form.claims-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f9f9f9; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form.claims-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form.claims-form input,
+form.claims-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form.claims-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+form.claims-form button:hover {
+  background-color: #555;
+}

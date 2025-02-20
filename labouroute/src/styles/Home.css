@@ -1,0 +1,170 @@
+/* Home Page */
+.home {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Hero Carousel */
+.hero-carousel {
+  margin-bottom: 3rem;
+  max-width: 1800px; /* Limit the maximum width of the carousel */
+  margin: 0 auto; /* Center the carousel */
+}
+
+.hero-carousel .carousel .slide img {
+  height: 500px; /* Set a fixed height for the images */
+  width: 100%; /* Ensure the image takes up the full width of the carousel */
+   object-fit: fill;/* Ensure the image covers the area without distortion */
+   
+}
+
+.hero-carousel .legend {
+  background: rgba(231, 179, 179, 0.7); /* Semi-transparent red background */
+  color: rgb(5, 2, 2); /* White text color */
+  padding: 1rem; /* Padding inside the legend */
+  font-size: 1.5rem; /* Font size */
+  border-radius: 1px; /* Slightly rounded corners */
+  position: absolute; /* Position absolutely within the carousel slide */
+  bottom: 20; /* Stick to the bottom of the slide */
+  left: 0; /* Align to the left edge */
+  width: 100%; /* Take up the full width of the slide */
+  text-align: center; /* Center the text */
+  box-sizing:content-box; /* Ensure padding is included in the width */
+}
+
+/* News Ticker */
+.news-ticker {
+  margin-bottom: 3rem;
+}
+
+.news-ticker h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #0e0c01;
+}
+
+.news-ticker p {
+  font-size: 1rem;
+  color: #610a0a;
+  padding: 0.5rem;
+  background-color: #eacc54;
+  border-radius: 2px;
+  margin: 0.01rem;
+}
+
+/* Reviews Carousel */
+.reviews-carousel {
+  margin-bottom: 3rem;
+}
+
+.reviews-carousel h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.review-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.review-card p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Content Section (Flex Container) */
+.home .content-section {
+  display: flex;
+  gap: 2rem; /* Space between left and right sections */
+  margin: 2rem auto;
+  max-width: 1200px; /* Limit the width of the section */
+}
+
+/* Left Section: Key Points (60% width) */
+.home .content-section .key-points {
+  flex: 3; /* 60% of the available space */
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.key-points h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.key-points p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.key-points-list {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.key-points-list h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.key-points-list ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.key-points-list li {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Right Section: Live News (40% width) */
+.home .content-section .live-news {
+  flex: 2; /* 40% of the available space */
+  background-color: #f9f9f9; /* Light gray background */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.live-news h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.live-news .news-images {
+  display: flex;
+  gap: 1rem; /* Space between images */
+  margin-top: 1rem;
+}
+
+.live-news .news-images img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

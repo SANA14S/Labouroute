@@ -1,0 +1,27 @@
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color:rgb(116, 34, 7);
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-nav a:hover {
+  text-decoration: underline;
+}

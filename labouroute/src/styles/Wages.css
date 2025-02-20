@@ -1,0 +1,131 @@
+/* Wages Section */
+.wages {
+  padding: 2rem;
+  display: flex; /* Use flexbox for layout */
+  gap: 2rem; /* Add space between left and right sections */
+}
+
+/* Left Section (Wage Tracker) */
+.wage-left {
+  flex: 1; /* Take up 50% of the available space */
+  max-width: 600px; /* Limit the width of the left section */
+}
+
+/* Right Section (Pie Chart and Report Table) */
+.wage-right {
+  flex: 1; /* Take up 50% of the available space */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Add space between pie chart and report table */
+}
+
+/* Wage Tracker */
+.wage-tracker {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(180, 56, 15);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 0.5rem;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.result {
+  margin-top: 1.5rem;
+}
+
+.result h3 {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+/* Report Controls */
+.report-controls {
+  margin-top: 2rem;
+}
+
+/* Pie Chart Container */
+.pie-chart-container {
+  width: 200%;
+  max-width: 500px; /* Adjust the size of the pie chart */
+}
+
+.pie-chart-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Pie Chart */
+.pie-chart {
+  width: 200%;
+  height: 85%;
+}
+
+/* Monthly Report */
+.monthly-report {
+  width: 100%;
+}
+
+.monthly-report h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.monthly-report table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.monthly-report th,
+.monthly-report td {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.monthly-report th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.monthly-report tr:hover {
+  background-color: #f1f1f1;
+}
