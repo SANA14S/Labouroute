@@ -1,0 +1,48 @@
+.contact-container {
+  
+  background: linear-gradient(to bottom, #faf3f1, #fdf7dd);
+  text-align: center;
+  padding: 20px;
+}
+
+.contact-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background-color: #f9e27c;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.contact-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contact-card {
+  background: rgb(255, 253, 240);
+  border-radius: 8px;
+  padding: 20px;
+  width: 40%;
+  text-align: left;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.contact-card p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.contact-card strong {
+  color: #333;
+}
