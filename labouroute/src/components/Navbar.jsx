@@ -77,7 +77,7 @@ function Navbar() {
           </li>
         
           <li><Link to="/faqs" className={location.pathname === "/faqs" ? "active" : ""}>FAQs</Link></li>
-          <li><Link to="/wages" className={location.pathname === "/wages" ? "active" : ""}>Wage Tracker</Link></li>
+         
           <li><Link to="/support" className={location.pathname === "/support" ? "active" : ""}>Support</Link></li>
           <li><Link to="/claims" className={location.pathname === "/claims" ? "active" : ""}>Claims Filing</Link></li>
 
@@ -94,7 +94,7 @@ function Navbar() {
             {loginDropdownOpen && (
               <ul className="dropdown-menu">
                 <li><Link to="/signup">Register(For New User Sign Up)</Link></li>
-                <li><Link to="/login">Login(For Registered Users)</Link></li>
+                <li><Link to="/login">Login(For Regiatered Users)</Link></li>
               </ul>
             )}
           </li>

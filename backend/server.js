@@ -1,90 +1,99 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-dotenv.config(); // Load .env variables
-
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const User = require("./models/User");
+const bcrypt = require("bcryptjs"); // For hashing passwords
 const app = express();
-
-app.use(cors({
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST'],
-    credentials: true
-}));
-
 app.use(express.json()); // Middleware to parse JSON
+app.use(cors()); // Allow frontend to access API
+require("dotenv").config();
 
-// ✅ Connect to MongoDB with Debugging Logs
-mongoose.connect(process.env.MONGO_URI, {})
-    .then(() => console.log("✅ MongoDB Connected Successfully"))
-    .catch((error) => console.error("❌ MongoDB Connection Error:", error));
+console.log("MONGO_URI:", process.env.MONGO_URI);
 
-// User Schema & Model
-const userSchema = new mongoose.Schema({
-    email: String,
-    password: String
+// Connect to MongoDB
+mongoose
+  .connect(
+    "mongodb+srv://sana1407:BQaZFEjKBVL86Wbi@cluster0.egiup.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => console.log("✅ MongoDB Connected Successfully"))
+  .catch((err) => console.error("MongoDB Connection Failed:", err));
+
+// Chatbot API Route (POST request only)
+app.post("/chat", (req, res) => {
+  const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ reply: "Please send a valid message." });
+  }
+
+  if (message.toLowerCase().includes("labour card")) {
+    res.json({ reply: "You can apply for a labour card at your nearest government office." });
+  } else {
+    res.json({ reply: "I'm here to help with labour-related queries!" });
+  }
 });
 
-const User = mongoose.model('User', userSchema);
+// ✅ Signup API Route
+app.post("/api/users/signup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
 
-// 🔹 **Signup Route**
-app.post('/api/auth/signup', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ message: "Email and password are required" });
-        }
-
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(409).json({ message: "User already exists" });
-        }
-
-        // Hash password before saving
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = new User({ email, password: hashedPassword });
-        await newUser.save();
-
-        res.status(201).json({ message: "User registered successfully" });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error });
+    // Check if the user already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ error: "User already exists" });
     }
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    user = new User({ name, email, password: hashedPassword });
+    await user.save();
+
+    res.status(201).json({ message: "User registered successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Server error", details: error.message });
+  }
+});
+// ✅ User Login Route
+
+app.post("/api/users/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ message: "All fields are required" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: "User not found" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+
+    const token = jwt.sign({ id: user._id }, "your_jwt_secret", { expiresIn: "1h" });
+    res.status(200).json({ message: "Login successful", token });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
-// 🔹 **Login Route**
-app.post('/api/auth/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ message: "Email and password are required" });
-        }
+const responses = [
+  "You can contact the Labour Ministry Helpline at 155214 for assistance.",
+  "To report workplace issues, call the National Helpline for Workers at 14434.",
+  "If you have wage-related concerns, visit your local labor office or file an online complaint.",
+  "For legal aid, reach out to [insert NGO/labor rights organization].",
+  "Need more assistance? Let me know your specific concern."
+];
 
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+function getRandomResponse() {
+  return responses[Math.floor(Math.random() * responses.length)];
+}
 
-        // Compare hashed passwords
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-
-        // Generate JWT Token
-        const token = jwt.sign({ userId: user._id }, "yourSecretKey", { expiresIn: "1h" });
-
-        res.status(200).json({ message: "Login successful", token });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error });
-    }
+// Webhook route for Dialogflow
+app.post("/webhook", (req, res) => {
+  res.json({ fulfillmentText: getRandomResponse() });
 });
-
-// ✅ Start Server (only once)
-const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+// Start the server
+app.listen(5002, () => {
+  console.log("🚀 Server running on port 5002");
 });

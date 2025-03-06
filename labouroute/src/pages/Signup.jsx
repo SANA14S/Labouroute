@@ -13,11 +13,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5002/api/auth/signup", user);
-      alert(res.data.message);
+      const res = await axios.post("http://localhost:5002/api/users/signup", user);
+      alert(res.data.message || "Signup successful!");
       navigate("/login"); // Redirect to login page
     } catch (err) {
-      alert(err.response.data.message);
+      alert(err.response?.data?.message || "Signup failed. Please try again.");
     }
   };
 
@@ -25,9 +25,30 @@ const Signup = () => {
     <div>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={user.name} // ✅ Controlled input
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={user.email} // ✅ Controlled input
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={user.password} // ✅ Controlled input
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Signup</button>
       </form>
     </div>
