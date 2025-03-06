@@ -3,6 +3,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const bcrypt = require("bcryptjs"); // For hashing passwords
+const jwt = require("jsonwebtoken");
+const dialogflow = require("@google-cloud/dialogflow");
+const uuid = require("uuid");
+require("dotenv").config();
 const app = express();
 app.use(express.json()); // Middleware to parse JSON
 app.use(cors()); // Allow frontend to access API
@@ -18,20 +22,7 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch((err) => console.error("MongoDB Connection Failed:", err));
 
-// Chatbot API Route (POST request only)
-app.post("/chat", (req, res) => {
-  const { message } = req.body;
 
-  if (!message) {
-    return res.status(400).json({ reply: "Please send a valid message." });
-  }
-
-  if (message.toLowerCase().includes("labour card")) {
-    res.json({ reply: "You can apply for a labour card at your nearest government office." });
-  } else {
-    res.json({ reply: "I'm here to help with labour-related queries!" });
-  }
-});
 
 // ✅ Signup API Route
 app.post("/api/users/signup", async (req, res) => {
@@ -74,6 +65,36 @@ app.post("/api/users/login", async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+const projectId = "labouroute-chatbot"; // Replace with your Dialogflow project ID
+const sessionClient = new dialogflow.SessionsClient({
+  keyFilename: "C:\Users\mranu\OneDrive\Desktop\major project\backend\labouroute-chatbot-038789a78127.json", // Ensure this file is correctly configured
+});
+
+app.post("/api/chatbot", async (req, res) => {
+  try {
+    const userMessage = req.body.message;
+    const sessionId = uuid.v4();
+    const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
+
+    const request = {
+      session: sessionPath,
+      queryInput: {
+        text: {
+          text: userMessage,
+          languageCode: "hi", // Hindi language support
+        },
+      },
+    };
+
+    const responses = await sessionClient.detectIntent(request);
+    const result = responses[0].queryResult;
+
+    res.json({ text: result.fulfillmentText });
+  } catch (error) {
+    console.error("Dialogflow API error:", error);
+    res.status(500).send("Error processing request");
   }
 });
 
