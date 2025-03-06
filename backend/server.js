@@ -77,22 +77,7 @@ app.post("/api/users/login", async (req, res) => {
   }
 });
 
-const responses = [
-  "You can contact the Labour Ministry Helpline at 155214 for assistance.",
-  "To report workplace issues, call the National Helpline for Workers at 14434.",
-  "If you have wage-related concerns, visit your local labor office or file an online complaint.",
-  "For legal aid, reach out to [insert NGO/labor rights organization].",
-  "Need more assistance? Let me know your specific concern."
-];
 
-function getRandomResponse() {
-  return responses[Math.floor(Math.random() * responses.length)];
-}
-
-// Webhook route for Dialogflow
-app.post("/webhook", (req, res) => {
-  res.json({ fulfillmentText: getRandomResponse() });
-});
 // Start the server
 app.listen(5002, () => {
   console.log("🚀 Server running on port 5002");
